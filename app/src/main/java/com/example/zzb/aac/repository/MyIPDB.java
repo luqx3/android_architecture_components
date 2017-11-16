@@ -11,18 +11,18 @@ import android.util.Log;
  */
 @Database(entities = {IP.class},version = 1)
 public abstract class MyIPDB extends RoomDatabase {
-    private static final String DB_NAME = "lexing-db";
+    private static final String DB_NAME = "my-db";
     private static volatile MyIPDB INSTANCE;
     public abstract IPDAO ipDao();
     public static MyIPDB getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (MyIPDB.class) {
                 if (INSTANCE == null) {
-                    Log.e("Vehicle", "start init database");
+                    Log.e("IP", "start init database");
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             MyIPDB.class, DB_NAME)
                             .build();
-                    Log.e("Vehicle", "init database success");
+                    Log.e("IP", "init database success");
                 }
             }
         }

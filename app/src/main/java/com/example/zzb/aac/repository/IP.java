@@ -3,6 +3,8 @@ package com.example.zzb.aac.repository;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.List;
+
 /**
  * Created by zzb on 2017/11/15.
  */
@@ -56,5 +58,17 @@ public class IP {
     }
 
     //private String Msg="";
+    public IP(){
+    }
+    public IP(String ip){
+        Ip=ip;
+    }
+    public IP(String ip,List<String> data){
+        Ip=ip;
+        Country=data.get(0);
+        Provincial=data.get(1);
+        City=data.get(2);
+        Operator=data.get(3);
+    }
 
 }

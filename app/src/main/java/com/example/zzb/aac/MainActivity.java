@@ -1,30 +1,73 @@
 package com.example.zzb.aac;
 
+import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.zzb.aac.repository.IP;
 import com.example.zzb.aac.repository.IPRepository;
+import com.example.zzb.aac.viewmodle.IPViewModle;
 
-public class MainActivity extends AppCompatActivity {
-
-    TextView tv;
-    IPRepository ipRepository;
+public class MainActivity extends LifecycleActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv=(TextView)findViewById(R.id.tv);
-        ipRepository=new IPRepository();
-        ipRepository.init(this);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                ipRepository.getIp("000000");
-            }
-        });
+        // Add product list fragment if this is first creation
+        if (savedInstanceState == null) {
+            IPFragment fragment = new IPFragment(this);
 
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, fragment).commit();
+        }
     }
+
+
+//    EditText et;
+//    Button btn1;
+//    TextView tv;
+//    IPRepository ipRepository;
+//    IPViewModle viewModel;
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        btn1=(Button)findViewById(R.id.search);
+//        et=(EditText)findViewById(R.id.ed1) ;
+//        tv=(TextView)findViewById(R.id.tv);
+//
+//
+//        viewModel = ViewModelProviders.of(this).get(IPViewModle.class);
+//        subscribeUi(viewModel);
+//
+//        btn1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                viewModel.searchbyIP(et.getText().toString());
+//            }
+//        });
+//    }
+//
+//    @Override
+//    public LifecycleRegistry getLifecycle() {
+//        return super.getLifecycle();
+//    }
+//
+//    private void subscribeUi(IPViewModle viewModel){
+//        viewModel.getip().observe(this, new Observer<IP>() {
+//            @Override
+//            public void onChanged(@Nullable IP ip) {
+//                tv.setText(ip.getCountry()+ip.getCity()+ip.getProvincial());
+//            }
+//        });
+//    }
 }

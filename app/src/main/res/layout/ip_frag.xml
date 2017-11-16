@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+
+        <variable
+            name="viewmodle"
+            type="com.example.zzb.aac.viewmodle.IPViewModle"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
+        <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:id="@+id/ip"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_marginLeft="@dimen/marginTop"-->
+        <!--android:layout_marginTop="@dimen/marginTop"-->
+        <!--android:layout_marginStart="@dimen/marginTop">-->
+
+        <EditText
+            android:id="@+id/ed1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/marginTop"
+            android:layout_marginTop="@dimen/marginTop"
+            android:layout_marginStart="@dimen/marginTop"
+            android:inputType="text"
+            android:text="@={viewmodle.ipString}"
+            android:hint="请输入IP地址"/>
+        <!--</android.support.design.widget.TextInputLayout>-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="@string/search"
+                android:onClick="@{viewmodle::setIP}"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="@dimen/marginTop"
+                />
+            <Button
+                android:id="@+id/clear"
+                android:layout_marginLeft="@dimen/marginLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="@string/clear"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="@dimen/marginTop"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv"
+            android:text="@{viewmodle.ipinfo}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/marginTop"
+            android:layout_marginBottom="@dimen/marginTop"
+            android:layout_marginRight="@dimen/marginLeft"
+            android:layout_marginLeft="@dimen/marginLeft"
+            android:background="@drawable/pic_bg" />
+
+        <!--<ListView-->
+        <!--android:id="@+id/listview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="@dimen/marginTop"-->
+        <!--android:layout_marginBottom="@dimen/marginTop"-->
+        <!--android:layout_marginRight="@dimen/marginLeft"-->
+        <!--android:layout_marginLeft="@dimen/marginLeft"-->
+        <!--android:focusable="false"-->
+        <!--android:background="@drawable/pic_bg"-->
+
+        <!--&gt;</ListView>-->
+
+    </LinearLayout>
+</layout>

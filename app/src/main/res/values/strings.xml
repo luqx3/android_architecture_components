@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AAC</string>
+    <string name="search">开始查询</string>
+    <string name="clear">清空列表</string>
 </resources>
