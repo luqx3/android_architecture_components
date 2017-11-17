@@ -1,6 +1,12 @@
 package com.example.zzb.aac.dragger;
 
 import android.app.Activity;
+import android.arch.lifecycle.LiveData;
+
+import com.example.zzb.aac.repository.IP;
+import com.example.zzb.aac.repository.IPDAO;
+
+import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,13 +24,13 @@ public class ActivityModule {
     }
 
     @Provides
-//    @ActivityScope
+    @ActivityScope
     Activity activity() {
         return this.activity;
     }
+
 //    @Provides
-//    @PerActivity
-//    ILoginActivity provideILoginActivity() {
-//        return (LoginActivity) this.activity;
+//    IPDAO provideIpDao(){
+//        return providesMyIPDB();
 //    }
 }

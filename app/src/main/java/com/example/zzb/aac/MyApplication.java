@@ -6,12 +6,11 @@ import com.example.zzb.aac.dragger.AppComponent;
 import com.example.zzb.aac.dragger.AppModule;
 import com.example.zzb.aac.dragger.DaggerAppComponent;
 
-
 /**
- * Created by HP on 2017/11/16.
+ * Created by zzb on 2017/11/17.
  */
 
-public class MyAppliaction extends Application {
+public class MyApplication extends Application {
 
 
     AppComponent appComponent = null;
@@ -27,10 +26,16 @@ public class MyAppliaction extends Application {
                 .build();
         appComponent.inject(this);
 
+
     }
 
     public AppComponent getAppComponent() {
         return appComponent;
     }
-}
 
+//    public AppComponent getAppComponent(){
+//        return DaggerAppComponent.builder()
+//                .appModule(new AppModule((MyApplication) getApplicationContext()))
+//                .build();
+//    }
+}

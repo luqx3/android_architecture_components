@@ -56,21 +56,20 @@ public class IPRepository extends HttpClient {
         MyIPDB database = MyIPDB.getInstance(context);
         ipdao=database.ipDao();
     }
-//    @Inject
     private IPRepository(Context context){
         this.context=context;
-        OkHttpClient httpClient = new OkHttpClient().newBuilder()
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .build();
-
-        retrofit=new Retrofit.Builder()
-                .baseUrl(BaseIPUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(httpClient)
-                .build();
-        ipAPI=retrofit.create(IpAPI.class);
+//        OkHttpClient httpClient = new OkHttpClient().newBuilder()
+//                .connectTimeout(20, TimeUnit.SECONDS)
+//                .readTimeout(20, TimeUnit.SECONDS)
+//                .build();
+//
+//        retrofit=new Retrofit.Builder()
+//                .baseUrl(BaseIPUrl)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .client(httpClient)
+//                .build();
+//        ipAPI=retrofit.create(IpAPI.class);
         ipdao=MyIPDB.getInstance(context).ipDao();
     }
     public static IPRepository getInstance(Context context){

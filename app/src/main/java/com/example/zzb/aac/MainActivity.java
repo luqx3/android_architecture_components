@@ -12,24 +12,42 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.zzb.aac.dragger.AppComponent;
+import com.example.zzb.aac.dragger.DaggerFragmentComponet;
+import com.example.zzb.aac.dragger.FragmentComponet;
 import com.example.zzb.aac.repository.IP;
 import com.example.zzb.aac.repository.IPRepository;
 import com.example.zzb.aac.viewmodle.IPViewModle;
 
-public class MainActivity extends LifecycleActivity {
+public class MainActivity extends BaseActivity {
+    private FragmentComponet fragmentComponet;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        getAppComponent().inject(this);
+
         // Add product list fragment if this is first creation
         if (savedInstanceState == null) {
-            IPFragment fragment = new IPFragment(this);
+            IPFragment fragment = new IPFragment();
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, fragment).commit();
         }
+        initializeInjector();
     }
+    private void initializeInjector() {
+//        this.fragmentComponet = DaggerFragmentComponet.builder()
+//                .appComponent(getAppComponent())
+//                .activityModule(getActivityModule())
+//                .build();
+    }
+
+    public FragmentComponet getComponent() {
+        return fragmentComponet;
+    }
+
 
 
 //    EditText et;

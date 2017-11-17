@@ -1,15 +1,16 @@
 package com.example.zzb.aac.dragger;
 
-import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
-import com.example.zzb.aac.MainActivity;
-import com.example.zzb.aac.MyAppliaction;
+import com.example.zzb.aac.MyApplication;
+import com.example.zzb.aac.net.IpAPI;
+import com.example.zzb.aac.repository.MyIPDB;
 
 import javax.inject.Singleton;
 
-import dagger.BindsInstance;
 import dagger.Component;
+import dagger.Provides;
 
 /**
  * Created by HP on 2017/11/16.
@@ -18,8 +19,14 @@ import dagger.Component;
 @Component(modules = {
         AppModule.class})
 public interface AppComponent {
-//    Context getContext();
-    void inject(MyAppliaction app);
+    Context getContext();
+    void inject(MyApplication app);
+
+
+
+    IpAPI  getIpAPI();
+
+    MyIPDB getMyIPDB();
 //    @Component.Builder
 //    interface Builder {
 //        @BindsInstance
