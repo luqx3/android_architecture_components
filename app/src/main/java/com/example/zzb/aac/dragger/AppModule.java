@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import com.example.zzb.aac.MyApplication;
 import com.example.zzb.aac.net.HttpClient;
 import com.example.zzb.aac.net.IpAPI;
 import com.example.zzb.aac.repository.MyIPDB;
@@ -24,15 +25,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class AppModule {
-    private Application mApplication;
+    private MyApplication mApplication;
 
-    public AppModule(Application application) {
+    public AppModule(MyApplication application) {
         mApplication = application;
     }
 
     @Provides
     @Singleton
-    Application providesApplication() {
+    MyApplication providesApplication() {
         return mApplication;
     }
 
@@ -42,15 +43,11 @@ public class AppModule {
         return mApplication;
     }
 
-    @Provides
-    Context applicationContext() {
-        return mApplication;
-    }
 
     @Provides
     @Singleton
-    MyIPDB providesMyIPDB(Context context) {
-        return Room.databaseBuilder(context.getApplicationContext(), MyIPDB.class, "my_ip_db").build();
+    MyIPDB providesMyIPDB() {
+        return Room.databaseBuilder(mApplication, MyIPDB.class, "my_ip_db").build();
     }
 
     @Singleton
