@@ -9,6 +9,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,15 @@ import com.example.zzb.aac.databinding.IpFragBinding;
 import com.example.zzb.aac.dragger.AppComponent;
 import com.example.zzb.aac.dragger.AppModule;
 import com.example.zzb.aac.dragger.DaggerAppComponent;
+import com.example.zzb.aac.dragger.DaggerFragmentComponet;
 import com.example.zzb.aac.dragger.FragmentComponet;
+import com.example.zzb.aac.dragger.FragmentModule;
 import com.example.zzb.aac.dragger.HasComponent;
+import com.example.zzb.aac.net.IpAPI;
 import com.example.zzb.aac.repository.IP;
+import com.example.zzb.aac.repository.IPDAO;
 import com.example.zzb.aac.repository.IPRepository;
+import com.example.zzb.aac.repository.MyIPDB;
 import com.example.zzb.aac.viewmodle.IPViewModle;
 
 import javax.inject.Inject;
@@ -30,27 +36,36 @@ import javax.inject.Inject;
  */
 
 public class IPFragment extends LifecycleFragment {
+
+    IpAPI ipAPI;
+
+    MyIPDB myIPDB;
+
     IpFragBinding mBinding;
 
     IPViewModle viewModel;
     Context context;
-//    FragmentComponet fragmentComponet;
+    FragmentComponet fragmentComponet;
 
 //    @Inject
-//    IPRepository ipRepository;
+    IPRepository ipRepository;
 
-    public IPFragment(){
-//        ipRepository=getActivity()
+    public IPFragment(FragmentComponet fragmentComponet){
+        this.fragmentComponet=fragmentComponet;
 
+//        this.getComponent(FragmentComponet.class).appComponent().getMyIPDB();
     }
-//    public IPFragment(Context context){
-//        this.context=context;
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getComponent(FragmentComponet.class).inject(this);
+//        fragmentComponet=FragmentComponet().builder()
+//                .build();
+
+        fragmentComponet.inject(this);
+        ipAPI=fragmentComponet.activity().getAppComponent().getIpAPI();
+        myIPDB=fragmentComponet.activity().getAppComponent().getMyIPDB();
+        ipRepository=new IPRepository(ipAPI,myIPDB,fragmentComponet.activity().getAppComponent().getContext());
     }
 
     @Nullable
@@ -62,9 +77,9 @@ public class IPFragment extends LifecycleFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        this.getComponent(FragmentComponet.class).inject(this);
+        //fragmentComponet.inject(this);
         viewModel = ViewModelProviders.of(this).get(IPViewModle.class);
-        viewModel.setContext(context);
+        viewModel.setIpRepository(ipRepository);
         subscribeUi(viewModel);
         mBinding.setViewmodle(viewModel);
 
@@ -80,10 +95,19 @@ public class IPFragment extends LifecycleFragment {
             }
         });
     }
-    @SuppressWarnings("unchecked")
-    protected <C> C getComponent(Class<C> componentType) {
-        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
-    }
+//    @SuppressWarnings("unchecked")
+//    protected <C> C getComponent(Class<C> componentType) {
+//        Log.i("",getActivity().toString());
+//        HasComponent<C> ss=(HasComponent<C>)getActivity();
+//        C activity=componentType.cast(((HasComponent<C>) getActivity()));
+//
+//        return componentType.cast(((HasComponent<C>) getActivity() ).getComponent());
+//    }
+//    public FragmentComponet getComponent() {
+////        return DaggerFragmentComponet.builder()
+////                .activityModule()
+////                .build();
+//    }
 
 
 

@@ -5,12 +5,21 @@ import android.app.Application;
 import com.example.zzb.aac.dragger.AppComponent;
 import com.example.zzb.aac.dragger.AppModule;
 import com.example.zzb.aac.dragger.DaggerAppComponent;
+import com.example.zzb.aac.repository.IPDAO;
+import com.example.zzb.aac.repository.MyIPDB;
+
+import javax.inject.Inject;
 
 /**
  * Created by zzb on 2017/11/17.
  */
 
 public class MyApplication extends Application {
+//    @Inject
+//    IPDAO ipdao;
+//
+//    @Inject
+//    MyIPDB myIPDB;
 
 
     AppComponent appComponent = null;
@@ -33,9 +42,12 @@ public class MyApplication extends Application {
         return appComponent;
     }
 
-//    public AppComponent getAppComponent(){
-//        return DaggerAppComponent.builder()
-//                .appModule(new AppModule((MyApplication) getApplicationContext()))
-//                .build();
+//    public MyIPDB getMyIPDB(){
+//        return myIPDB;
 //    }
+//
+//    public IPDAO getIpdao(){
+//        return ipdao;
+//    }
+
 }

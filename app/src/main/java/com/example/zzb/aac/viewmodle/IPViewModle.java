@@ -22,16 +22,20 @@ public class IPViewModle extends ViewModel {
     LiveData<IP> ip;
     public ObservableField<String> ipString = new ObservableField<>();
     public ObservableField<String> ipinfo = new ObservableField<>();
+    IPRepository ipRepository;
     public IPViewModle(){
     }
     public void setContext(Context context){
         this.context=context;
     }
-    public IPViewModle(Context context){
-        this.context=context;
-        ipinfo.set("");
-        ipString.set("");
+    public void setIpRepository(IPRepository ipRepository){
+        this.ipRepository=ipRepository;
     }
+//    public IPViewModle(Context context){
+//        this.context=context;
+//        ipinfo.set("");
+//        ipString.set("");
+//    }
     public LiveData<IP> searchbyIP(String ipS){
         ip=IPRepository.getInstance(context).getIp(ipS);
         return ip;
@@ -43,7 +47,7 @@ public class IPViewModle extends ViewModel {
 
     public LiveData<IP> getip(){
 //        if(ip==null){
-            ip=IPRepository.getInstance(context).getIp(ipString.get());
+            ip=ipRepository.getIp(ipString.get());
             if(ip==null&&ip.getValue()!=null){
                 ipinfo.set(ip.getValue().getCountry()==null?"null":ip.getValue().getCountry());
             }
@@ -53,8 +57,8 @@ public class IPViewModle extends ViewModel {
 
     public void setIP(View view){
         getip();
-        IPRepository.getInstance(context).getindex(ipString.get());
-        IPRepository.getInstance(context).getAllFromDB();
+        ipRepository.getindex(ipString.get());
+        ipRepository.getAllFromDB();
     }
 
 }

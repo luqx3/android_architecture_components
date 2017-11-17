@@ -2,8 +2,10 @@ package com.example.zzb.aac.dragger;
 
 import android.app.Activity;
 
+import com.example.zzb.aac.BaseActivity;
 import com.example.zzb.aac.MainActivity;
 import com.example.zzb.aac.repository.IPDAO;
+import com.example.zzb.aac.repository.MyIPDB;
 
 import dagger.Component;
 
@@ -22,6 +24,9 @@ public interface ActivityComponent {
 //        return sComponent;
 //    }
 
-    Activity activity();
-//    IPDAO provideIpDao();
+    BaseActivity activity();
+
+//    AppComponent appComponent();
+//    IPDAO getIpDao();
+//    MyIPDB getmyIPDB();
 }

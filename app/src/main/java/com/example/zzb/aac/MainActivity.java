@@ -15,22 +15,28 @@ import android.widget.TextView;
 import com.example.zzb.aac.dragger.AppComponent;
 import com.example.zzb.aac.dragger.DaggerFragmentComponet;
 import com.example.zzb.aac.dragger.FragmentComponet;
+import com.example.zzb.aac.dragger.FragmentModule;
 import com.example.zzb.aac.repository.IP;
 import com.example.zzb.aac.repository.IPRepository;
 import com.example.zzb.aac.viewmodle.IPViewModle;
 
 public class MainActivity extends BaseActivity {
-    private FragmentComponet fragmentComponet;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fragmentComponet=DaggerFragmentComponet.builder()
+                .activityModule(getActivityModule())
+                .fragmentModule(new FragmentModule())
+                .build();
+
 //        getAppComponent().inject(this);
 
         // Add product list fragment if this is first creation
         if (savedInstanceState == null) {
-            IPFragment fragment = new IPFragment();
+            IPFragment fragment = new IPFragment(fragmentComponet);
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, fragment).commit();
@@ -44,9 +50,7 @@ public class MainActivity extends BaseActivity {
 //                .build();
     }
 
-    public FragmentComponet getComponent() {
-        return fragmentComponet;
-    }
+
 
 
 
