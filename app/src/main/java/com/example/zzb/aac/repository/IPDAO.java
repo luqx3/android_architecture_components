@@ -24,6 +24,9 @@ public interface IPDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertIP(IP ip);
 
-    @Query("select exists(select * from IP where Ip = :ip);")
+    @Query("select exists(select * from IP where Ip=:ip);")
     int findIP(String ip);
+
+    @Query("select count(*) from IP ")
+    int getSize();
 }

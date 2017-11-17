@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'jacoco'
+//apply plugin: 'com.neenbedankt.android-apt'
+
 
 android {
     compileSdkVersion 26
@@ -50,10 +53,13 @@ dependencies {
     compile "android.arch.lifecycle:extensions:1.0.0-alpha9"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9"
 
-    compile 'com.google.dagger:dagger:2.0.2' // dagger2
-//    compile 'com.google.dagger:dagger-compiler:2.0.2' // dagger2
-
+    // Dagger2
+    compile "com.google.dagger:dagger:2.12"
+    //apt "com.google.dagger:dagger-compiler:${daggerLibVersion}"
+//    provided 'com.google.dagger:dagger-compiler:2.12'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
 //    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
 
 

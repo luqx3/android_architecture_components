@@ -13,7 +13,9 @@ import android.util.Log;
 public abstract class MyIPDB extends RoomDatabase {
     private static final String DB_NAME = "my-db";
     private static volatile MyIPDB INSTANCE;
+
     public abstract IPDAO ipDao();
+
     public static MyIPDB getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (MyIPDB.class) {

@@ -26,8 +26,6 @@ public class IPViewModle extends ViewModel {
     }
     public void setContext(Context context){
         this.context=context;
-        ipinfo.set("1.1.1.1");
-        ipString.set("");
     }
     public IPViewModle(Context context){
         this.context=context;
@@ -55,6 +53,8 @@ public class IPViewModle extends ViewModel {
 
     public void setIP(View view){
         getip();
+        IPRepository.getInstance(context).getindex(ipString.get());
+        IPRepository.getInstance(context).getAllFromDB();
     }
 
 }

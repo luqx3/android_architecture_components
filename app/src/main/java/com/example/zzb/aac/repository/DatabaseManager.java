@@ -43,4 +43,21 @@ public class DatabaseManager {
                 .subscribe();
     }
 
+    public void findindex(final IPDAO ipdao,final String ip){
+        Observable.empty()
+                .doOnCompleted(new Action0() {
+                    @Override
+                    public void call() {
+                        if (ip == null) {
+                            Log.i("IP","null");
+                            return;
+                        }
+                        Log.i("IP",ipdao.findIP(ip)+"");
+
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
 }

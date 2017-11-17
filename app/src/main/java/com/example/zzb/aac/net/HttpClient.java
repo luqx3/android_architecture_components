@@ -13,7 +13,7 @@ import rx.schedulers.Schedulers;
 public class HttpClient {
     protected Retrofit retrofit;
     protected static final String BaseDoubanUrl = "https://api.douban.com";
-    protected static String BaseIPUrl = "http://api.ip138.com/";
+    public static String BaseIPUrl = "http://api.ip138.com/";
 
     public void subscribe(Observable o, Subscriber s) {
         o.subscribeOn(Schedulers.io())

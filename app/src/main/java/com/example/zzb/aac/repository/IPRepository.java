@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.zzb.aac.MainActivity;
 import com.example.zzb.aac.common.IPData;
+import com.example.zzb.aac.common.NetWorkUtils;
 import com.example.zzb.aac.net.BaseSubscriber;
 import com.example.zzb.aac.net.HttpClient;
 import com.example.zzb.aac.net.IpAPI;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import okhttp3.OkHttpClient;
@@ -37,18 +39,26 @@ import rx.schedulers.Schedulers;
 public class IPRepository extends HttpClient {
     private final String token="91512cf1f06256d18786aaf33642e415";
     private final String jsonp="jsonp";
-    private IpAPI ipAPI;
+
     private static IPDAO ipdao;
     private Executor executor;
     private static IPRepository sInstance;
+    private MutableLiveData<IP> ipLive = new MutableLiveData<>();
+    private MutableLiveData<List<IP>> iplist = new MutableLiveData<>();
+    Context context;
+
+//    @Inject
+    private IpAPI ipAPI;
+
+
 
     public void init(Context context){
         MyIPDB database = MyIPDB.getInstance(context);
         ipdao=database.ipDao();
     }
-
+//    @Inject
     private IPRepository(Context context){
-
+        this.context=context;
         OkHttpClient httpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
@@ -76,8 +86,16 @@ public class IPRepository extends HttpClient {
 
     }
     public LiveData<IP> getIp(String IP){
-        refreshData(IP);
-        return ipdao.getIPbyid(IP);
+        if(NetWorkUtils.isConnected(context)){
+            refreshData(IP);
+        }else{
+            return ipdao.getIPbyid(IP);
+        }
+        return ipLive;
+    }
+    public void getindex(String IP){
+
+        DatabaseManager.getInstance().findindex(ipdao,IP);
     }
     public LiveData<List<IP>> getAllFromDB(){
         return ipdao.getIPList();
@@ -88,6 +106,7 @@ public class IPRepository extends HttpClient {
             BaseSubscriber<IPData> subscriber2=new BaseSubscriber<>(new OnSubscriberListener<IPData>() {
                 @Override
                 public void onSuccess(IPData data) {
+                    ipLive.setValue(new IP(ip,data.getData()));
                     if(data.getData()!=null){
                         DatabaseManager.getInstance().insertIP(ipdao,new IP(ip,data.getData()));
                     }
